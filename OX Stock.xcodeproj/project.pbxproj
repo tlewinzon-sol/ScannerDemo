@@ -61,11 +61,11 @@
 				7EB3E54223DB653700CC6A0D /* AppDelegate.swift */,
 				7EB3E54423DB653700CC6A0D /* SceneDelegate.swift */,
 				7EB3E54623DB653700CC6A0D /* ViewController.swift */,
+				7EB3E55623DB6D3300CC6A0D /* ScanViewController.swift */,
 				7EB3E54823DB653700CC6A0D /* Main.storyboard */,
 				7EB3E54B23DB653A00CC6A0D /* Assets.xcassets */,
 				7EB3E54D23DB653A00CC6A0D /* LaunchScreen.storyboard */,
 				7EB3E55023DB653A00CC6A0D /* Info.plist */,
-				7EB3E55623DB6D3300CC6A0D /* ScanViewController.swift */,
 			);
 			path = "OX Stock";
 			sourceTree = "<group>";

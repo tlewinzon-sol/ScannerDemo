@@ -44,7 +44,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view alpha="0.55000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cgv-5K-rji">
+                            <view alpha="0.55000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cgv-5K-rji" userLabel="topBarView">
                                 <rect key="frame" x="0.0" y="44" width="414" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RsL-Wc-1Ms">
@@ -52,6 +52,9 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" image="xmark" catalog="system"/>
+                                        <connections>
+                                            <action selector="exitTapped:" destination="3Fg-Yf-JqF" eventType="touchUpInside" id="hns-JO-C48"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -62,7 +65,7 @@
                                     <constraint firstItem="RsL-Wc-1Ms" firstAttribute="top" secondItem="Cgv-5K-rji" secondAttribute="top" constant="17" id="rDU-Yz-M0X"/>
                                 </constraints>
                             </view>
-                            <view alpha="0.55000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mAL-OE-TtA">
+                            <view alpha="0.55000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mAL-OE-TtA" userLabel="labelView">
                                 <rect key="frame" x="0.0" y="822" width="414" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No barcode detected" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zMC-Fi-aC2">
@@ -92,6 +95,11 @@
                         <viewLayoutGuide key="safeArea" id="iqf-qg-BtW"/>
                     </view>
                     <navigationItem key="navigationItem" id="4Xr-47-VXA"/>
+                    <connections>
+                        <outlet property="labelView" destination="mAL-OE-TtA" id="vSo-79-ypG"/>
+                        <outlet property="messageLabel" destination="zMC-Fi-aC2" id="ZkM-Ni-OeR"/>
+                        <outlet property="topBatView" destination="Cgv-5K-rji" id="lFI-XS-P0c"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kbc-pa-Byo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
