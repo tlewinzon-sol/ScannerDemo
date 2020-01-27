@@ -15,6 +15,20 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var barCodeFramePreview: UIView?
     
+    let supportedCodeTypes = [AVMetadataObject.ObjectType.upce,
+    AVMetadataObject.ObjectType.code39,
+    AVMetadataObject.ObjectType.code39Mod43,
+    AVMetadataObject.ObjectType.code93,
+    AVMetadataObject.ObjectType.code128,
+    AVMetadataObject.ObjectType.ean8,
+    AVMetadataObject.ObjectType.ean13,
+    AVMetadataObject.ObjectType.aztec,
+    AVMetadataObject.ObjectType.pdf417,
+    AVMetadataObject.ObjectType.itf14,
+    AVMetadataObject.ObjectType.dataMatrix,
+    AVMetadataObject.ObjectType.interleaved2of5,
+    AVMetadataObject.ObjectType.qr]
+    
 
     @IBOutlet weak var labelView: UIView!
     @IBOutlet weak var messageLabel: UILabel!
@@ -46,7 +60,7 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
             
             //Seteo el deleagate y un array de tipos de data a identificar. Puse todos los que creo que son barcodes
             captureMetedataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-            captureMetedataOutput.metadataObjectTypes = captureMetedataOutput.availableMetadataObjectTypes
+            captureMetedataOutput.metadataObjectTypes = supportedCodeTypes
             
             //Initialize the video preview layer. Es una sublayer en la main view
             videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
@@ -63,6 +77,37 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
         
         view.bringSubviewToFront(labelView)
         view.bringSubviewToFront(topBatView)
+        
+        barCodeFramePreview = UIView()
+         
+        if let barCodeFramePreview = barCodeFramePreview {
+            barCodeFramePreview.layer.borderColor = UIColor.green.cgColor
+            barCodeFramePreview.layer.borderWidth = 2
+            view.addSubview(barCodeFramePreview)
+            view.bringSubviewToFront(barCodeFramePreview)
+        }
+    }
+    
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+    // Check if the metadataObjects array is not nil and it contains at least one object.
+    if metadataObjects.count == 0 {
+        barCodeFramePreview?.frame = CGRect.zero
+        messageLabel.text = "No QR code is detected"
+        return
+    }
+    
+    // Get the metadata object.
+    let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
+    
+        if supportedCodeTypes.contains(metadataObj.type) {
+        // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
+        let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
+        barCodeFramePreview?.frame = barCodeObject!.bounds
+        
+        if metadataObj.stringValue != nil {
+            messageLabel.text = metadataObj.stringValue
+        }
+    }
     }
     
     @IBAction func exitTapped(_ sender: Any) {
